@@ -1,0 +1,82 @@
+plugins:
+  alcOrg:
+  - approve
+  - assign
+  - blunderbuss
+  - help
+  - hold
+  - lgtm
+  - lifecycle
+  - size
+  - trigger
+  - wip
+  - override
+  - owners-label
+  - verify-owners # Validates OWNERS file changes in PRs.
+
+  alcOrg/test-infra:
+  - config-updater
+
+approve:
+- repos:
+  - alcOrg/prow-test
+  - alcOrg/test-infra
+  issue_required: false
+  require_self_approval: true
+  lgtm_acts_as_approve: false
+
+blunderbuss:
+  request_count: 2
+  exclude_approvers: true
+
+cherry_pick_unapproved: {}
+
+config_updater:
+  maps:
+    prow/z-alc/label_sync/labels.yaml:
+      name: label-config
+      namespace: test-pods
+    prow/z-alc/config.ymal:
+      name: config
+    prow/z-alc/plugins.yaml:
+      name: plugins
+    prow/z-alc/jobs/**/*.yaml:
+      name: job-config
+      gzip: true
+
+external_plugins:
+  alcOrg/prow-test:
+  - name: approval2
+    endpoint: http://approval2:8080/webhook
+    events:
+    - issue_comment
+  alcOrg/test-infra:
+  - name: approval2
+    endpoint: http://approval2:8080/webhook
+    events:
+    - issue_comment
+
+lgtm:
+- repos:
+  - alcOrg/prow-test
+  review_acts_as_lgtm: true
+- repos:
+  - alcOrg/test-infra
+  review_acts_as_lgtm: true
+
+owners:
+  skip_collaborators:
+  - alcOrg/prow-test
+  - alcOrg/test-infra
+
+slack: {}
+
+triggers:
+- repos:
+  - alcOrg/prow-test
+  - alcOrg/test-infra
+  trusted_org: alcOrg
+  only_org_members: true
+
+welcome:
+- message_template: Welcome

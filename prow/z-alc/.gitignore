@@ -1,0 +1,6 @@
+hmac-token.txt
+oauth-token.txt
+service-account.json
+*secret*
+*token*
+*.old
