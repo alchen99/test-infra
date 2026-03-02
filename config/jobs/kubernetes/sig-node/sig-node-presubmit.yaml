@@ -813,7 +813,7 @@ presubmits:
               - --deployment=node
               - --gcp-zone=us-central1-b
               - --node-args=--image-config-file=/home/prow/go/src/k8s.io/test-infra/jobs/e2e_node/containerd/image-config-serial-resource-managers.yaml
-              - --node-test-args=--service-feature-gates="InPlacePodLevelResourcesVerticalScaling=true" --feature-gates="InPlacePodLevelResourcesVerticalScaling=true" --kubelet-flags="--cgroups-per-qos=true --cgroup-root=/ --cgroup-driver=systemd"
+              - --node-test-args=--service-feature-gates="NodeDeclaredFeatures=true,InPlacePodLevelResourcesVerticalScaling=true" --feature-gates="NodeDeclaredFeatures=true,InPlacePodLevelResourcesVerticalScaling=true" --kubelet-flags="--cgroups-per-qos=true --cgroup-root=/ --cgroup-driver=systemd"
               - --node-tests=true
               - --provider=gce
               - --runtime-config=api/all=true
